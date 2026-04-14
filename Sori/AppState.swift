@@ -98,6 +98,32 @@ final class AppState: ObservableObject {
         }
     }
 
+    func refreshModelCache() async {
+        let prefs = PreferencesSnapshot()
+        modelCached = await downloader.isCached(modelId: prefs.modelId)
+    }
+
+    func downloadModel() async {
+        let prefs = PreferencesSnapshot()
+        downloadProgress = 0
+        do {
+            _ = try await downloader.ensureDownloaded(modelId: prefs.modelId) { fraction in
+                Task { @MainActor [weak self] in
+                    self?.downloadProgress = fraction
+                }
+            }
+            let modelPath = await downloader.localPath(for: prefs.modelId)
+            await transcriber.configure(
+                modelDirectory: modelPath,
+                idleTimeout: prefs.modelIdleTimeoutSeconds
+            )
+            modelCached = true
+            downloadProgress = 1.0
+        } catch {
+            recordingState = .error("다운로드 실패: \(error.localizedDescription)")
+        }
+    }
+
     func toggleRecording() {
         guard modelCached else {
             recordingState = .error("모델이 다운로드되지 않았습니다")

@@ -14,13 +14,16 @@
 		5C615138AFC027FD77546659 /* Clipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D5BBF393964E7A5B25E980 /* Clipboard.swift */; };
 		6F67020B53E333D08ED7F521 /* SoriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EA89A8E935090E248D8580 /* SoriApp.swift */; };
 		B0C41877B0084A40BF0A6043 /* Transcriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7A4EFEF4D9A2BE95E3A2CC /* Transcriber.swift */; };
+		B5382D04DAC39656D527E09A /* WelcomeWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882EEB753F3E9B62EDED55B /* WelcomeWindow.swift */; };
 		BE3818FFDA307F588B43F110 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6237D5C9435EFE00B90B4B2E /* AppDelegate.swift */; };
 		D0E46C644A1B53EC2B2D12EB /* ModelDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90BFCF32777664BCE6C4533 /* ModelDownloader.swift */; };
 		D37B8AB76FCEECE039952489 /* HotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70023E6CDD8D35F8A89944E7 /* HotkeyManager.swift */; };
+		F3C9BDEB58AE09E3A01D6A32 /* PermissionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14242E6DA9E57EFAE42C9DCD /* PermissionChecker.swift */; };
 		FA313CA23FA232164DF37D50 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 26A2280FB9BB9A6C9D277B95 /* KeyboardShortcuts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		14242E6DA9E57EFAE42C9DCD /* PermissionChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionChecker.swift; sourceTree = "<group>"; };
 		1F399B5D54D79569F2E386C9 /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		30D5BBF393964E7A5B25E980 /* Clipboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clipboard.swift; sourceTree = "<group>"; };
 		36EA89A8E935090E248D8580 /* SoriApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoriApp.swift; sourceTree = "<group>"; };
@@ -28,6 +31,7 @@
 		6237D5C9435EFE00B90B4B2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70023E6CDD8D35F8A89944E7 /* HotkeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyManager.swift; sourceTree = "<group>"; };
 		A739DA2FE607B14B20AFF189 /* Sori.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sori.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B882EEB753F3E9B62EDED55B /* WelcomeWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeWindow.swift; sourceTree = "<group>"; };
 		E90BFCF32777664BCE6C4533 /* ModelDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDownloader.swift; sourceTree = "<group>"; };
 		EE49C7AA4D82C0F26D15DB06 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		F861848890A14FD68C78CB88 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -46,6 +50,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		20EB65A8EE02EFDAF57A21F7 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				B882EEB753F3E9B62EDED55B /* WelcomeWindow.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		3FB328A6E8FA8AC4E1D0F20B /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -61,6 +73,7 @@
 				EE49C7AA4D82C0F26D15DB06 /* AppState.swift */,
 				36EA89A8E935090E248D8580 /* SoriApp.swift */,
 				D09D8CD34BEAD4AFBBAABBDC /* Core */,
+				20EB65A8EE02EFDAF57A21F7 /* UI */,
 			);
 			path = Sori;
 			sourceTree = "<group>";
@@ -71,6 +84,7 @@
 				30D5BBF393964E7A5B25E980 /* Clipboard.swift */,
 				70023E6CDD8D35F8A89944E7 /* HotkeyManager.swift */,
 				E90BFCF32777664BCE6C4533 /* ModelDownloader.swift */,
+				14242E6DA9E57EFAE42C9DCD /* PermissionChecker.swift */,
 				F861848890A14FD68C78CB88 /* Preferences.swift */,
 				1F399B5D54D79569F2E386C9 /* Recorder.swift */,
 				4A7A4EFEF4D9A2BE95E3A2CC /* Transcriber.swift */,
@@ -157,10 +171,12 @@
 				5C615138AFC027FD77546659 /* Clipboard.swift in Sources */,
 				D37B8AB76FCEECE039952489 /* HotkeyManager.swift in Sources */,
 				D0E46C644A1B53EC2B2D12EB /* ModelDownloader.swift in Sources */,
+				F3C9BDEB58AE09E3A01D6A32 /* PermissionChecker.swift in Sources */,
 				1E9D6959EF7137E1FED7E200 /* Preferences.swift in Sources */,
 				2C4C167685C012557116B88B /* Recorder.swift in Sources */,
 				6F67020B53E333D08ED7F521 /* SoriApp.swift in Sources */,
 				B0C41877B0084A40BF0A6043 /* Transcriber.swift in Sources */,
+				B5382D04DAC39656D527E09A /* WelcomeWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
