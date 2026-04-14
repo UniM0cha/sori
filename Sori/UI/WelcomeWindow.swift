@@ -84,7 +84,13 @@ struct WelcomeView: View {
     }
 
     private var canStart: Bool {
-        permissions.microphoneGranted && permissions.accessibilityGranted && appState.modelCached
+        // 권한은 선택사항으로 두고, 모델만 준비되면 진입 가능.
+        // 권한이 없으면 나중에 메뉴 막대 → 설정에서 허용할 수 있다.
+        appState.modelCached
+    }
+
+    private var permissionsMissing: Bool {
+        !(permissions.microphoneGranted && permissions.accessibilityGranted)
     }
 
     private var header: some View {
@@ -97,17 +103,25 @@ struct WelcomeView: View {
     }
 
     private var footer: some View {
-        HStack {
-            Button("건너뛰기") {
-                onFinish()
+        VStack(alignment: .leading, spacing: 8) {
+            if permissionsMissing && appState.modelCached {
+                Text("권한을 허용하지 않으면 단축키와 자동 붙여넣기가 동작하지 않습니다. 나중에 메뉴 막대 → 설정에서도 허용할 수 있습니다.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
-            Spacer()
-            Button("시작") {
-                UserDefaults.standard.set(true, forKey: PreferenceKeys.hasCompletedWelcome)
-                onFinish()
+            HStack {
+                Button("건너뛰기") {
+                    onFinish()
+                }
+                Spacer()
+                Button("시작") {
+                    UserDefaults.standard.set(true, forKey: PreferenceKeys.hasCompletedWelcome)
+                    onFinish()
+                }
+                .keyboardShortcut(.defaultAction)
+                .disabled(!canStart)
             }
-            .keyboardShortcut(.defaultAction)
-            .disabled(!canStart)
         }
     }
 }
@@ -184,7 +198,6 @@ private struct ModelRow: View {
                 Button("다운로드 시작") {
                     Task { await startDownload() }
                 }
-                .disabled(!permissions.bothGranted)
             }
         }
     }
