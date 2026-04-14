@@ -50,3 +50,18 @@ targets:
       - package: MLXSwiftASR
         product: MLXASR
       - package: KeyboardShortcuts
+
+  SoriTests:
+    type: bundle.unit-test
+    platform: macOS
+    deploymentTarget: "15.0"
+    sources:
+      - path: SoriTests
+    dependencies:
+      - target: Sori
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.solstice.sori.tests
+        GENERATE_INFOPLIST_FILE: YES
+        BUNDLE_LOADER: "$(TEST_HOST)"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Sori.app/Contents/MacOS/Sori"

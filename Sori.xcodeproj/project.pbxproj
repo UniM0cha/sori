@@ -9,14 +9,19 @@
 /* Begin PBXBuildFile section */
 		0A152F30B1F8500A58B601EA /* MLXASR in Frameworks */ = {isa = PBXBuildFile; productRef = 8FDE199859F5579D0AB7BC81 /* MLXASR */; };
 		11BEA8E95E5444B83CB1059B /* FileTranscriptionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E819C2E3362DC496D36B6 /* FileTranscriptionQueue.swift */; };
+		1A0C2ABB133A29932DFA0C3C /* PreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597154F2A6040D3B03A25C7E /* PreferencesTests.swift */; };
+		1CA9EBD5F071466F43667D6E /* HistoryEntryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2F3629779EE841AD86AE3E /* HistoryEntryTests.swift */; };
 		1E9D6959EF7137E1FED7E200 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = F861848890A14FD68C78CB88 /* Preferences.swift */; };
+		240338BFFC89C5FB33560226 /* AudioFileDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7206D78EA19B5DF66C630A /* AudioFileDecoderTests.swift */; };
 		2C4C167685C012557116B88B /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F399B5D54D79569F2E386C9 /* Recorder.swift */; };
+		2FAE71D0337EEC9C5D4C7F29 /* HistoryStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B370EB84030A55916BED20BF /* HistoryStoreTests.swift */; };
 		3BBDDE18087F3D3B10CAF6DB /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE49C7AA4D82C0F26D15DB06 /* AppState.swift */; };
 		596474797F98EE50205479D0 /* HistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B03B7AC56F83346DBB7CA0 /* HistoryStore.swift */; };
 		5C615138AFC027FD77546659 /* Clipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D5BBF393964E7A5B25E980 /* Clipboard.swift */; };
 		6F67020B53E333D08ED7F521 /* SoriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EA89A8E935090E248D8580 /* SoriApp.swift */; };
 		8236A7A27965F031EDACB381 /* AudioFileDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9347E84AF66A5CCE055530 /* AudioFileDecoder.swift */; };
 		8BD939562743395966FF1FB4 /* FileQueueWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A4B3963D149B392CFC33F0 /* FileQueueWindow.swift */; };
+		9A25C29D782F8A9AEBF80065 /* ClipboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0978352EC68F9D9399A9EDBF /* ClipboardTests.swift */; };
 		AFAF8D42038F5F79FD27DC57 /* MenuBarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78F92AE68691AE038DACAFF /* MenuBarContent.swift */; };
 		B0C41877B0084A40BF0A6043 /* Transcriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7A4EFEF4D9A2BE95E3A2CC /* Transcriber.swift */; };
 		B5382D04DAC39656D527E09A /* WelcomeWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882EEB753F3E9B62EDED55B /* WelcomeWindow.swift */; };
@@ -29,7 +34,18 @@
 		FA313CA23FA232164DF37D50 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 26A2280FB9BB9A6C9D277B95 /* KeyboardShortcuts */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		71366CB36A444DF7E3BCD5A3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FF392381B994B11E68C8A557 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D038B82A43168DD1CCC77630;
+			remoteInfo = Sori;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		0978352EC68F9D9399A9EDBF /* ClipboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardTests.swift; sourceTree = "<group>"; };
 		0CAFDE2F28309776658391F3 /* HistoryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEntry.swift; sourceTree = "<group>"; };
 		14242E6DA9E57EFAE42C9DCD /* PermissionChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionChecker.swift; sourceTree = "<group>"; };
 		1F399B5D54D79569F2E386C9 /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
@@ -37,11 +53,15 @@
 		36EA89A8E935090E248D8580 /* SoriApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoriApp.swift; sourceTree = "<group>"; };
 		4A7A4EFEF4D9A2BE95E3A2CC /* Transcriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcriber.swift; sourceTree = "<group>"; };
 		57CB446A04F21CD789DB8500 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		597154F2A6040D3B03A25C7E /* PreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesTests.swift; sourceTree = "<group>"; };
 		6237D5C9435EFE00B90B4B2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70023E6CDD8D35F8A89944E7 /* HotkeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyManager.swift; sourceTree = "<group>"; };
 		78A4B3963D149B392CFC33F0 /* FileQueueWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileQueueWindow.swift; sourceTree = "<group>"; };
 		8C9347E84AF66A5CCE055530 /* AudioFileDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFileDecoder.swift; sourceTree = "<group>"; };
+		9921A910E5CFC50300BD121F /* SoriTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoriTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A739DA2FE607B14B20AFF189 /* Sori.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sori.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC2F3629779EE841AD86AE3E /* HistoryEntryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEntryTests.swift; sourceTree = "<group>"; };
+		B370EB84030A55916BED20BF /* HistoryStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStoreTests.swift; sourceTree = "<group>"; };
 		B882EEB753F3E9B62EDED55B /* WelcomeWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeWindow.swift; sourceTree = "<group>"; };
 		B94E819C2E3362DC496D36B6 /* FileTranscriptionQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTranscriptionQueue.swift; sourceTree = "<group>"; };
 		E5B03B7AC56F83346DBB7CA0 /* HistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStore.swift; sourceTree = "<group>"; };
@@ -49,6 +69,7 @@
 		E90BFCF32777664BCE6C4533 /* ModelDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDownloader.swift; sourceTree = "<group>"; };
 		EE49C7AA4D82C0F26D15DB06 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		F861848890A14FD68C78CB88 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		FD7206D78EA19B5DF66C630A /* AudioFileDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFileDecoderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +85,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F83F41841377BC9DE3AE65D /* SoriTests */ = {
+			isa = PBXGroup;
+			children = (
+				FD7206D78EA19B5DF66C630A /* AudioFileDecoderTests.swift */,
+				0978352EC68F9D9399A9EDBF /* ClipboardTests.swift */,
+				AC2F3629779EE841AD86AE3E /* HistoryEntryTests.swift */,
+				B370EB84030A55916BED20BF /* HistoryStoreTests.swift */,
+				597154F2A6040D3B03A25C7E /* PreferencesTests.swift */,
+			);
+			path = SoriTests;
+			sourceTree = "<group>";
+		};
 		20EB65A8EE02EFDAF57A21F7 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				A739DA2FE607B14B20AFF189 /* Sori.app */,
+				9921A910E5CFC50300BD121F /* SoriTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -125,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				64FB34AC2D5FECCA279DE180 /* Sori */,
+				0F83F41841377BC9DE3AE65D /* SoriTests */,
 				3FB328A6E8FA8AC4E1D0F20B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -132,6 +167,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		98EBC998171389332BCC4FDC /* SoriTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FF031D3BB1BF8AB7E1358DF6 /* Build configuration list for PBXNativeTarget "SoriTests" */;
+			buildPhases = (
+				54EC1045CD6D4E6263DC9379 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AE991ECB2936A8F855158646 /* PBXTargetDependency */,
+			);
+			name = SoriTests;
+			packageProductDependencies = (
+			);
+			productName = SoriTests;
+			productReference = 9921A910E5CFC50300BD121F /* SoriTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		D038B82A43168DD1CCC77630 /* Sori */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D5979BE0E93417241310068 /* Build configuration list for PBXNativeTarget "Sori" */;
@@ -161,6 +214,10 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					98EBC998171389332BCC4FDC = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
 					D038B82A43168DD1CCC77630 = {
 						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
@@ -186,11 +243,24 @@
 			projectRoot = "";
 			targets = (
 				D038B82A43168DD1CCC77630 /* Sori */,
+				98EBC998171389332BCC4FDC /* SoriTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		54EC1045CD6D4E6263DC9379 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				240338BFFC89C5FB33560226 /* AudioFileDecoderTests.swift in Sources */,
+				9A25C29D782F8A9AEBF80065 /* ClipboardTests.swift in Sources */,
+				1CA9EBD5F071466F43667D6E /* HistoryEntryTests.swift in Sources */,
+				2FAE71D0337EEC9C5D4C7F29 /* HistoryStoreTests.swift in Sources */,
+				1A0C2ABB133A29932DFA0C3C /* PreferencesTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B6C25DF509D8DB26123E839D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -218,7 +288,33 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		AE991ECB2936A8F855158646 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D038B82A43168DD1CCC77630 /* Sori */;
+			targetProxy = 71366CB36A444DF7E3BCD5A3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		3B1DD263AA672E0C645E0F88 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.solstice.sori.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sori.app/Contents/MacOS/Sori";
+			};
+			name = Debug;
+		};
 		6A1DE0AE50E20E7B4C97038E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -310,6 +406,24 @@
 				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
+		};
+		BF6D476708FB9459216F974C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.solstice.sori.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sori.app/Contents/MacOS/Sori";
+			};
+			name = Release;
 		};
 		D5B2B622499C020A1876F60D /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -413,6 +527,15 @@
 			buildConfigurations = (
 				9183CCBB433D4F7064935114 /* Debug */,
 				D5B2B622499C020A1876F60D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		FF031D3BB1BF8AB7E1358DF6 /* Build configuration list for PBXNativeTarget "SoriTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B1DD263AA672E0C645E0F88 /* Debug */,
+				BF6D476708FB9459216F974C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

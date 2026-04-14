@@ -25,19 +25,6 @@ final class Recorder: @unchecked Sendable {
             throw RecorderError.setupFailed("no input device")
         }
 
-        guard let targetFormat = AVAudioFormat(
-            commonFormat: .pcmFormatInt16,
-            sampleRate: Self.sampleRate,
-            channels: 1,
-            interleaved: true
-        ) else {
-            throw RecorderError.setupFailed("target format")
-        }
-
-        guard let converter = AVAudioConverter(from: inputFormat, to: targetFormat) else {
-            throw RecorderError.setupFailed("converter")
-        }
-
         let tempURL = FileManager.default.temporaryDirectory
             .appendingPathComponent("sori-\(UUID().uuidString).wav")
         let settings: [String: Any] = [
@@ -49,6 +36,15 @@ final class Recorder: @unchecked Sendable {
             AVLinearPCMIsFloatKey: false,
         ]
         let audioFile = try AVAudioFile(forWriting: tempURL, settings: settings)
+
+        // write(from:) requires the buffer format to match the file's in-memory
+        // processingFormat (non-interleaved float32), regardless of how the file
+        // is encoded on disk. Use that same format as the converter target.
+        let targetFormat = audioFile.processingFormat
+
+        guard let converter = AVAudioConverter(from: inputFormat, to: targetFormat) else {
+            throw RecorderError.setupFailed("converter")
+        }
 
         self.targetFormat = targetFormat
         self.converter = converter

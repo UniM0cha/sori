@@ -28,19 +28,6 @@ enum AudioFileDecoder {
 
         let inputFormat = file.processingFormat
 
-        guard let targetFormat = AVAudioFormat(
-            commonFormat: .pcmFormatInt16,
-            sampleRate: targetSampleRate,
-            channels: 1,
-            interleaved: true
-        ) else {
-            throw DecoderError.cannotCreateConverter
-        }
-
-        guard let converter = AVAudioConverter(from: inputFormat, to: targetFormat) else {
-            throw DecoderError.cannotCreateConverter
-        }
-
         let outputURL = FileManager.default.temporaryDirectory
             .appendingPathComponent("sori-file-\(UUID().uuidString).wav")
         let settings: [String: Any] = [
@@ -52,6 +39,15 @@ enum AudioFileDecoder {
             AVLinearPCMIsFloatKey: false,
         ]
         let outputFile = try AVAudioFile(forWriting: outputURL, settings: settings)
+
+        // Use the output file's in-memory processingFormat as the converter target
+        // so write(from:) sees a matching buffer. The file is still written to disk
+        // as 16 kHz mono int16 PCM because of `settings` above.
+        let targetFormat = outputFile.processingFormat
+
+        guard let converter = AVAudioConverter(from: inputFormat, to: targetFormat) else {
+            throw DecoderError.cannotCreateConverter
+        }
 
         let chunkFrames: AVAudioFrameCount = 8192
         guard let inputBuffer = AVAudioPCMBuffer(pcmFormat: inputFormat, frameCapacity: chunkFrames) else {

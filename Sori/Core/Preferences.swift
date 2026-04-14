@@ -27,8 +27,8 @@ enum ModelIdentifier {
 }
 
 extension UserDefaults {
-    static func registerSoriDefaults() {
-        UserDefaults.standard.register(defaults: [
+    static func registerSoriDefaults(on defaults: UserDefaults = .standard) {
+        defaults.register(defaults: [
             PreferenceKeys.modelId: ModelIdentifier.defaultModel,
             PreferenceKeys.modelIdleTimeoutSeconds: 300.0,
             PreferenceKeys.asrLanguage: "auto",
