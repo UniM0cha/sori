@@ -16,6 +16,7 @@
 		2C4C167685C012557116B88B /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F399B5D54D79569F2E386C9 /* Recorder.swift */; };
 		2FAE71D0337EEC9C5D4C7F29 /* HistoryStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B370EB84030A55916BED20BF /* HistoryStoreTests.swift */; };
 		3BBDDE18087F3D3B10CAF6DB /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE49C7AA4D82C0F26D15DB06 /* AppState.swift */; };
+		52E56CCB60B67B22511EF905 /* tokenizer.json in Resources */ = {isa = PBXBuildFile; fileRef = C7BCD0553C96AD7F78B9192F /* tokenizer.json */; };
 		596474797F98EE50205479D0 /* HistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B03B7AC56F83346DBB7CA0 /* HistoryStore.swift */; };
 		5C615138AFC027FD77546659 /* Clipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D5BBF393964E7A5B25E980 /* Clipboard.swift */; };
 		6F67020B53E333D08ED7F521 /* SoriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EA89A8E935090E248D8580 /* SoriApp.swift */; };
@@ -64,6 +65,7 @@
 		B370EB84030A55916BED20BF /* HistoryStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStoreTests.swift; sourceTree = "<group>"; };
 		B882EEB753F3E9B62EDED55B /* WelcomeWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeWindow.swift; sourceTree = "<group>"; };
 		B94E819C2E3362DC496D36B6 /* FileTranscriptionQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTranscriptionQueue.swift; sourceTree = "<group>"; };
+		C7BCD0553C96AD7F78B9192F /* tokenizer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tokenizer.json; sourceTree = "<group>"; };
 		E5B03B7AC56F83346DBB7CA0 /* HistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStore.swift; sourceTree = "<group>"; };
 		E78F92AE68691AE038DACAFF /* MenuBarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarContent.swift; sourceTree = "<group>"; };
 		E90BFCF32777664BCE6C4533 /* ModelDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDownloader.swift; sourceTree = "<group>"; };
@@ -108,6 +110,14 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		27CFF589D574891F466A5E2D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C7BCD0553C96AD7F78B9192F /* tokenizer.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		3FB328A6E8FA8AC4E1D0F20B /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +135,7 @@
 				36EA89A8E935090E248D8580 /* SoriApp.swift */,
 				D09D8CD34BEAD4AFBBAABBDC /* Core */,
 				C40346BB8A129659B899CB80 /* History */,
+				27CFF589D574891F466A5E2D /* Resources */,
 				20EB65A8EE02EFDAF57A21F7 /* UI */,
 			);
 			path = Sori;
@@ -190,6 +201,7 @@
 			buildConfigurationList = 2D5979BE0E93417241310068 /* Build configuration list for PBXNativeTarget "Sori" */;
 			buildPhases = (
 				B6C25DF509D8DB26123E839D /* Sources */,
+				ED59113C88C58248EB2952A7 /* Resources */,
 				630C08FC82121E3D910C4717 /* Frameworks */,
 			);
 			buildRules = (
@@ -247,6 +259,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		ED59113C88C58248EB2952A7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52E56CCB60B67B22511EF905 /* tokenizer.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		54EC1045CD6D4E6263DC9379 /* Sources */ = {

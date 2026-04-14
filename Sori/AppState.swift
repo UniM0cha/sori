@@ -102,6 +102,12 @@ final class AppState: ObservableObject {
             idleTimeout: prefs.modelIdleTimeoutSeconds
         )
         let cached = await downloader.isCached(modelId: prefs.modelId)
+        // If the model was cached by a previous build (before we started bundling
+        // tokenizer.json), patch it into the existing folder so transcription works
+        // without re-downloading the full checkpoint.
+        if cached {
+            try? await downloader.injectBundledTokenizerIfNeeded(at: modelPath)
+        }
         modelCached = cached
 
         if cached && prefs.eagerLoadModelOnLaunch {
@@ -159,6 +165,7 @@ final class AppState: ObservableObject {
             recordingStartedAt = Date()
             recordingState = .recording
             startBlinking()
+            NSSound(named: NSSound.Name("Tink"))?.play()
         } catch {
             recordingState = .error("녹음 시작 실패: \(error.localizedDescription)")
         }
@@ -174,6 +181,7 @@ final class AppState: ObservableObject {
             recordingState = .idle
             return
         }
+        NSSound(named: NSSound.Name("Pop"))?.play()
         recordingState = .transcribing
 
         let prefs = PreferencesSnapshot()

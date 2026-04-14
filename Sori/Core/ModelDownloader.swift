@@ -2,6 +2,17 @@ import Foundation
 import Hub
 
 actor ModelDownloader {
+    enum DownloaderError: Error, LocalizedError {
+        case bundledTokenizerMissing
+
+        var errorDescription: String? {
+            switch self {
+            case .bundledTokenizerMissing:
+                return "앱 리소스에 tokenizer.json이 포함되어 있지 않습니다"
+            }
+        }
+    }
+
     private let hub: HubApi
     private let downloadBase: URL
 
@@ -30,8 +41,27 @@ actor ModelDownloader {
         modelId: String,
         progressHandler: @Sendable @escaping (Double) -> Void
     ) async throws -> URL {
-        try await hub.snapshot(from: modelId) { progress in
+        let path = try await hub.snapshot(from: modelId) { progress in
             progressHandler(progress.fractionCompleted)
         }
+        try injectBundledTokenizerIfNeeded(at: path)
+        return path
+    }
+
+    /// Ensure a `tokenizer.json` exists at `modelFolder`. All mlx-community
+    /// Qwen3-ASR repos ship with the legacy vocab.json + merges.txt layout only,
+    /// but swift-transformers strictly requires tokenizer.json. We build it
+    /// offline from Qwen3-ASR's vocab/merges/config using Python transformers
+    /// and ship it as a bundle resource; this method copies it into place
+    /// after download (or on first run with an older cache).
+    func injectBundledTokenizerIfNeeded(at modelFolder: URL) throws {
+        let destination = modelFolder.appendingPathComponent("tokenizer.json")
+        if FileManager.default.fileExists(atPath: destination.path) {
+            return
+        }
+        guard let bundled = Bundle.main.url(forResource: "tokenizer", withExtension: "json") else {
+            throw DownloaderError.bundledTokenizerMissing
+        }
+        try FileManager.default.copyItem(at: bundled, to: destination)
     }
 }
