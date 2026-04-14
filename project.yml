@@ -1,0 +1,52 @@
+name: Sori
+
+options:
+  bundleIdPrefix: com.solstice
+  deploymentTarget:
+    macOS: "15.0"
+  developmentLanguage: ko
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+  defaultConfig: Debug
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    MACOSX_DEPLOYMENT_TARGET: "15.0"
+    ENABLE_HARDENED_RUNTIME: NO
+    CODE_SIGN_STYLE: Automatic
+    CODE_SIGN_IDENTITY: "-"
+    DEVELOPMENT_TEAM: ""
+    ENABLE_USER_SCRIPT_SANDBOXING: NO
+
+packages:
+  MLXSwiftASR:
+    url: https://github.com/ontypehq/mlx-swift-asr
+    branch: main
+  KeyboardShortcuts:
+    url: https://github.com/sindresorhus/KeyboardShortcuts
+    from: "2.0.0"
+
+targets:
+  Sori:
+    type: application
+    platform: macOS
+    deploymentTarget: "15.0"
+    sources:
+      - path: Sori
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.solstice.sori
+        PRODUCT_NAME: Sori
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_LSUIElement: YES
+        INFOPLIST_KEY_NSMicrophoneUsageDescription: "Sori는 음성을 녹음하고 받아쓰기하기 위해 마이크 접근이 필요합니다."
+        INFOPLIST_KEY_CFBundleDisplayName: Sori
+        INFOPLIST_KEY_NSHighResolutionCapable: YES
+        SWIFT_EMIT_LOC_STRINGS: YES
+    dependencies:
+      - package: MLXSwiftASR
+        product: MLXASR
+      - package: KeyboardShortcuts
