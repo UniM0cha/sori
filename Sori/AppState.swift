@@ -20,17 +20,21 @@ final class AppState: ObservableObject {
     let recorder: Recorder
     let transcriber: Transcriber
     let downloader: ModelDownloader
+    let history: HistoryStore
 
     private var blinkTimer: Timer?
+    private var recordingStartedAt: Date?
 
     init(
         recorder: Recorder = Recorder(),
         transcriber: Transcriber = Transcriber(),
-        downloader: ModelDownloader = ModelDownloader()
+        downloader: ModelDownloader = ModelDownloader(),
+        history: HistoryStore = HistoryStore()
     ) {
         self.recorder = recorder
         self.transcriber = transcriber
         self.downloader = downloader
+        self.history = history
     }
 
     var isRecording: Bool {
@@ -139,6 +143,7 @@ final class AppState: ObservableObject {
     private func startRecording() {
         do {
             try recorder.start()
+            recordingStartedAt = Date()
             recordingState = .recording
             startBlinking()
         } catch {
@@ -149,6 +154,9 @@ final class AppState: ObservableObject {
     private func stopAndTranscribe() {
         stopBlinking()
         let wavURL = recorder.stop()
+        let duration = recordingStartedAt.map { Date().timeIntervalSince($0) } ?? 0
+        recordingStartedAt = nil
+
         guard let wavURL else {
             recordingState = .idle
             return
@@ -169,11 +177,13 @@ final class AppState: ObservableObject {
                     context: customWords.isEmpty ? nil : customWords
                 )
                 await MainActor.run {
-                    if text.isEmpty {
+                    let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+                    if trimmed.isEmpty {
                         self.recordingState = .idle
                         return
                     }
-                    Clipboard.writeAndPaste(text)
+                    self.history.append(text: trimmed, duration: duration, source: .live)
+                    Clipboard.writeAndPaste(trimmed)
                     self.recordingState = .idle
                 }
             } catch is CancellationError {
@@ -185,6 +195,16 @@ final class AppState: ObservableObject {
                     self.recordingState = .error("전사 실패: \(error.localizedDescription)")
                 }
             }
+        }
+    }
+
+    func reuseHistoryEntry(id: UUID, paste: Bool) {
+        guard let entry = history.entries.first(where: { $0.id == id }) else { return }
+        history.bump(id: id)
+        if paste {
+            Clipboard.writeAndPaste(entry.text)
+        } else {
+            Clipboard.writeOnly(entry.text)
         }
     }
 
