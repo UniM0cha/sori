@@ -16,6 +16,8 @@ final class AppState: ObservableObject {
     @Published private(set) var isBlinkOn: Bool = false
     @Published var modelCached: Bool = false
     @Published var downloadProgress: Double = 0.0
+    @Published private(set) var currentInputLevel: Float = 0.0
+    @Published private(set) var recordingElapsed: TimeInterval = 0
 
     let recorder: Recorder
     let transcriber: Transcriber
@@ -23,8 +25,10 @@ final class AppState: ObservableObject {
     let history: HistoryStore
     let fileQueue: FileTranscriptionQueue
     private let fileQueueWindow: FileQueueWindowController
+    private var overlayWindow: RecordingOverlayWindowController?
 
     private var blinkTimer: Timer?
+    private var elapsedTimer: Timer?
     private var recordingStartedAt: Date?
 
     init(
@@ -48,6 +52,13 @@ final class AppState: ObservableObject {
 
     func addFilesToQueue() {
         fileQueueWindow.presentOpenPanel()
+    }
+
+    private func overlayController() -> RecordingOverlayWindowController {
+        if let overlayWindow { return overlayWindow }
+        let controller = RecordingOverlayWindowController(appState: self)
+        overlayWindow = controller
+        return controller
     }
 
     var isRecording: Bool {
@@ -160,11 +171,18 @@ final class AppState: ObservableObject {
     }
 
     private func startRecording() {
+        let prefs = PreferencesSnapshot()
         do {
-            try recorder.start()
+            try recorder.start(deviceID: prefs.inputDeviceID) { [weak self] level in
+                Task { @MainActor in self?.currentInputLevel = level }
+            }
             recordingStartedAt = Date()
             recordingState = .recording
+            currentInputLevel = 0
+            recordingElapsed = 0
             startBlinking()
+            startElapsedTimer()
+            overlayController().show()
             NSSound(named: NSSound.Name("Tink"))?.play()
         } catch {
             recordingState = .error("녹음 시작 실패: \(error.localizedDescription)")
@@ -173,12 +191,14 @@ final class AppState: ObservableObject {
 
     private func stopAndTranscribe() {
         stopBlinking()
+        stopElapsedTimer()
         let wavURL = recorder.stop()
         let duration = recordingStartedAt.map { Date().timeIntervalSince($0) } ?? 0
         recordingStartedAt = nil
 
         guard let wavURL else {
             recordingState = .idle
+            overlayWindow?.hide()
             return
         }
         NSSound(named: NSSound.Name("Pop"))?.play()
@@ -199,21 +219,31 @@ final class AppState: ObservableObject {
                 )
                 await MainActor.run {
                     let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+                    NSLog("[Sori][AppState] transcribe returned len=\(text.count) trimmedEmpty=\(trimmed.isEmpty)")
                     if trimmed.isEmpty {
-                        self.recordingState = .idle
+                        self.recordingState = .error("전사 결과가 비어 있습니다. 마이크 입력을 확인하거나 더 길게 말해보세요")
                         return
                     }
                     self.history.append(text: trimmed, duration: duration, source: .live)
                     Clipboard.writeAndPaste(trimmed)
                     self.recordingState = .idle
+                    self.overlayWindow?.hide()
                 }
             } catch is CancellationError {
-                await MainActor.run { self.recordingState = .idle }
+                await MainActor.run {
+                    self.recordingState = .idle
+                    self.overlayWindow?.hide()
+                }
             } catch Transcriber.TranscriberError.cancelled {
-                await MainActor.run { self.recordingState = .idle }
+                await MainActor.run {
+                    self.recordingState = .idle
+                    self.overlayWindow?.hide()
+                }
             } catch {
                 await MainActor.run {
+                    NSLog("[Sori][AppState] transcribe failed: \(error.localizedDescription)")
                     self.recordingState = .error("전사 실패: \(error.localizedDescription)")
+                    self.overlayWindow?.hide()
                 }
             }
         }
@@ -233,6 +263,8 @@ final class AppState: ObservableObject {
         if isRecording {
             recorder.cancel()
             stopBlinking()
+            stopElapsedTimer()
+            overlayWindow?.hide()
             recordingState = .idle
             return
         }
@@ -240,7 +272,10 @@ final class AppState: ObservableObject {
             Task { [weak self] in
                 guard let self else { return }
                 await self.transcriber.cancelCurrent()
-                await MainActor.run { self.recordingState = .idle }
+                await MainActor.run {
+                    self.recordingState = .idle
+                    self.overlayWindow?.hide()
+                }
             }
         }
     }
@@ -258,5 +293,20 @@ final class AppState: ObservableObject {
         blinkTimer?.invalidate()
         blinkTimer = nil
         isBlinkOn = false
+    }
+
+    private func startElapsedTimer() {
+        stopElapsedTimer()
+        let started = Date()
+        elapsedTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
+            Task { @MainActor in
+                self?.recordingElapsed = Date().timeIntervalSince(started)
+            }
+        }
+    }
+
+    private func stopElapsedTimer() {
+        elapsedTimer?.invalidate()
+        elapsedTimer = nil
     }
 }

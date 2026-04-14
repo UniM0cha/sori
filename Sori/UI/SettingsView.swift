@@ -6,12 +6,43 @@ struct SettingsView: View {
         TabView {
             GeneralSettingsTab()
                 .tabItem { Label("일반", systemImage: "gear") }
+            AudioSettingsTab()
+                .tabItem { Label("오디오", systemImage: "mic") }
             ModelSettingsTab()
                 .tabItem { Label("모델", systemImage: "cpu") }
             HistorySettingsTab()
                 .tabItem { Label("히스토리", systemImage: "clock") }
         }
-        .frame(width: 520, height: 420)
+        .frame(width: 520, height: 460)
+    }
+}
+
+private struct AudioSettingsTab: View {
+    @AppStorage(PreferenceKeys.inputDeviceID) private var inputDeviceID: String = ""
+    @State private var devices: [AudioInputDevice] = []
+
+    var body: some View {
+        Form {
+            Section("입력 장치") {
+                Picker("마이크", selection: $inputDeviceID) {
+                    Text("시스템 기본").tag("")
+                    ForEach(devices) { device in
+                        let label = device.isDefault ? "\(device.name) (기본)" : device.name
+                        Text(label).tag(device.id)
+                    }
+                }
+                Button {
+                    devices = AudioDeviceList.available()
+                } label: {
+                    Label("목록 새로고침", systemImage: "arrow.clockwise")
+                }
+                Text("녹음 시 사용할 마이크입니다. '시스템 기본'을 선택하면 macOS 사운드 설정의 현재 기본 입력 장치를 따릅니다.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .formStyle(.grouped)
+        .onAppear { devices = AudioDeviceList.available() }
     }
 }
 

@@ -43,11 +43,17 @@ actor Transcriber {
         let languageHint = (language == "auto" || language?.isEmpty == true) ? nil : language
         let contextHint = (context?.isEmpty == true) ? nil : context
 
+        let attributes = try? FileManager.default.attributesOfItem(atPath: url.path)
+        let size = (attributes?[.size] as? NSNumber)?.intValue ?? -1
+        NSLog("[Sori][Transcriber] start file=\(url.lastPathComponent) size=\(size) lang=\(languageHint ?? "auto")")
+
         let result = try await stt.transcribe(
             file: url,
             language: languageHint,
             context: contextHint
         )
+
+        NSLog("[Sori][Transcriber] result text.count=\(result.text.count) audioDur=\(result.audioDuration) rtf=\(result.rtf)")
 
         if cancelRequested {
             throw TranscriberError.cancelled

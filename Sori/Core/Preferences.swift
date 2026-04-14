@@ -9,6 +9,7 @@ enum PreferenceKeys {
     static let historyRetentionDays = "historyRetentionDays"
     static let eagerLoadModelOnLaunch = "eagerLoadModelOnLaunch"
     static let hasCompletedWelcome = "hasCompletedWelcome"
+    static let inputDeviceID = "inputDeviceID"
 }
 
 enum ModelIdentifier {
@@ -50,6 +51,7 @@ struct PreferencesSnapshot: Sendable {
     var historyRetentionDays: Int
     var eagerLoadModelOnLaunch: Bool
     var hasCompletedWelcome: Bool
+    var inputDeviceID: String?  // nil이면 시스템 기본
 
     init(defaults: UserDefaults = .standard) {
         self.modelId = defaults.string(forKey: PreferenceKeys.modelId) ?? ModelIdentifier.defaultModel
@@ -62,6 +64,8 @@ struct PreferencesSnapshot: Sendable {
         self.historyRetentionDays = defaults.integer(forKey: PreferenceKeys.historyRetentionDays)
         self.eagerLoadModelOnLaunch = defaults.bool(forKey: PreferenceKeys.eagerLoadModelOnLaunch)
         self.hasCompletedWelcome = defaults.bool(forKey: PreferenceKeys.hasCompletedWelcome)
+        let rawDeviceID = defaults.string(forKey: PreferenceKeys.inputDeviceID) ?? ""
+        self.inputDeviceID = rawDeviceID.isEmpty ? nil : rawDeviceID
     }
 }
 
