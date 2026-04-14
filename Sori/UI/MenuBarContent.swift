@@ -95,6 +95,28 @@ struct MenuBarContent: View {
     private var footerButtons: some View {
         VStack(alignment: .leading, spacing: 0) {
             Button {
+                appState.addFilesToQueue()
+            } label: {
+                Label("파일 전사…", systemImage: "doc.badge.plus")
+            }
+            .buttonStyle(.plain)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
+
+            Button {
+                appState.showFileQueue()
+            } label: {
+                Label("파일 전사 큐 보기", systemImage: "list.bullet.rectangle")
+            }
+            .buttonStyle(.plain)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
+
+            Divider().padding(.vertical, 4)
+
+            Button {
                 openSettings()
             } label: {
                 Label("설정…", systemImage: "gear")

@@ -21,6 +21,8 @@ final class AppState: ObservableObject {
     let transcriber: Transcriber
     let downloader: ModelDownloader
     let history: HistoryStore
+    let fileQueue: FileTranscriptionQueue
+    private let fileQueueWindow: FileQueueWindowController
 
     private var blinkTimer: Timer?
     private var recordingStartedAt: Date?
@@ -35,6 +37,17 @@ final class AppState: ObservableObject {
         self.transcriber = transcriber
         self.downloader = downloader
         self.history = history
+        let queue = FileTranscriptionQueue(transcriber: transcriber, history: history)
+        self.fileQueue = queue
+        self.fileQueueWindow = FileQueueWindowController(queue: queue)
+    }
+
+    func showFileQueue() {
+        fileQueueWindow.show()
+    }
+
+    func addFilesToQueue() {
+        fileQueueWindow.presentOpenPanel()
     }
 
     var isRecording: Bool {

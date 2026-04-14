@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		0A152F30B1F8500A58B601EA /* MLXASR in Frameworks */ = {isa = PBXBuildFile; productRef = 8FDE199859F5579D0AB7BC81 /* MLXASR */; };
+		11BEA8E95E5444B83CB1059B /* FileTranscriptionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E819C2E3362DC496D36B6 /* FileTranscriptionQueue.swift */; };
 		1E9D6959EF7137E1FED7E200 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = F861848890A14FD68C78CB88 /* Preferences.swift */; };
 		2C4C167685C012557116B88B /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F399B5D54D79569F2E386C9 /* Recorder.swift */; };
 		3BBDDE18087F3D3B10CAF6DB /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE49C7AA4D82C0F26D15DB06 /* AppState.swift */; };
 		596474797F98EE50205479D0 /* HistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B03B7AC56F83346DBB7CA0 /* HistoryStore.swift */; };
 		5C615138AFC027FD77546659 /* Clipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D5BBF393964E7A5B25E980 /* Clipboard.swift */; };
 		6F67020B53E333D08ED7F521 /* SoriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EA89A8E935090E248D8580 /* SoriApp.swift */; };
+		8236A7A27965F031EDACB381 /* AudioFileDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9347E84AF66A5CCE055530 /* AudioFileDecoder.swift */; };
+		8BD939562743395966FF1FB4 /* FileQueueWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A4B3963D149B392CFC33F0 /* FileQueueWindow.swift */; };
 		AFAF8D42038F5F79FD27DC57 /* MenuBarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78F92AE68691AE038DACAFF /* MenuBarContent.swift */; };
 		B0C41877B0084A40BF0A6043 /* Transcriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7A4EFEF4D9A2BE95E3A2CC /* Transcriber.swift */; };
 		B5382D04DAC39656D527E09A /* WelcomeWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882EEB753F3E9B62EDED55B /* WelcomeWindow.swift */; };
@@ -36,8 +39,11 @@
 		57CB446A04F21CD789DB8500 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		6237D5C9435EFE00B90B4B2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70023E6CDD8D35F8A89944E7 /* HotkeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyManager.swift; sourceTree = "<group>"; };
+		78A4B3963D149B392CFC33F0 /* FileQueueWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileQueueWindow.swift; sourceTree = "<group>"; };
+		8C9347E84AF66A5CCE055530 /* AudioFileDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFileDecoder.swift; sourceTree = "<group>"; };
 		A739DA2FE607B14B20AFF189 /* Sori.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sori.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B882EEB753F3E9B62EDED55B /* WelcomeWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeWindow.swift; sourceTree = "<group>"; };
+		B94E819C2E3362DC496D36B6 /* FileTranscriptionQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTranscriptionQueue.swift; sourceTree = "<group>"; };
 		E5B03B7AC56F83346DBB7CA0 /* HistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStore.swift; sourceTree = "<group>"; };
 		E78F92AE68691AE038DACAFF /* MenuBarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarContent.swift; sourceTree = "<group>"; };
 		E90BFCF32777664BCE6C4533 /* ModelDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDownloader.swift; sourceTree = "<group>"; };
@@ -61,6 +67,7 @@
 		20EB65A8EE02EFDAF57A21F7 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				78A4B3963D149B392CFC33F0 /* FileQueueWindow.swift */,
 				E78F92AE68691AE038DACAFF /* MenuBarContent.swift */,
 				57CB446A04F21CD789DB8500 /* SettingsView.swift */,
 				B882EEB753F3E9B62EDED55B /* WelcomeWindow.swift */,
@@ -101,7 +108,9 @@
 		D09D8CD34BEAD4AFBBAABBDC /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				8C9347E84AF66A5CCE055530 /* AudioFileDecoder.swift */,
 				30D5BBF393964E7A5B25E980 /* Clipboard.swift */,
+				B94E819C2E3362DC496D36B6 /* FileTranscriptionQueue.swift */,
 				70023E6CDD8D35F8A89944E7 /* HotkeyManager.swift */,
 				E90BFCF32777664BCE6C4533 /* ModelDownloader.swift */,
 				14242E6DA9E57EFAE42C9DCD /* PermissionChecker.swift */,
@@ -188,7 +197,10 @@
 			files = (
 				BE3818FFDA307F588B43F110 /* AppDelegate.swift in Sources */,
 				3BBDDE18087F3D3B10CAF6DB /* AppState.swift in Sources */,
+				8236A7A27965F031EDACB381 /* AudioFileDecoder.swift in Sources */,
 				5C615138AFC027FD77546659 /* Clipboard.swift in Sources */,
+				8BD939562743395966FF1FB4 /* FileQueueWindow.swift in Sources */,
+				11BEA8E95E5444B83CB1059B /* FileTranscriptionQueue.swift in Sources */,
 				ECC96AA126FABBEF0F0A6154 /* HistoryEntry.swift in Sources */,
 				596474797F98EE50205479D0 /* HistoryStore.swift in Sources */,
 				D37B8AB76FCEECE039952489 /* HotkeyManager.swift in Sources */,
