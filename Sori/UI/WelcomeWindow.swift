@@ -76,6 +76,11 @@ struct WelcomeView: View {
         .frame(width: 540, height: 520)
         .onAppear { permissions.startPolling() }
         .onDisappear { permissions.stopPolling() }
+        .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
+            // When the user returns from System Settings after flipping the toggle,
+            // recheck immediately instead of waiting for the next polling tick.
+            permissions.refreshNow()
+        }
     }
 
     private var canStart: Bool {

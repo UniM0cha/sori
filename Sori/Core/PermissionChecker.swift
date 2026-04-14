@@ -17,14 +17,24 @@ final class PermissionChecker: ObservableObject {
     func startPolling() {
         refresh()
         timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+        // Register on .common so ticks keep firing during SwiftUI event tracking
+        // (e.g. while the Welcome window is being interacted with or a sheet is up).
+        let newTimer = Timer(timeInterval: 2.0, repeats: true) { [weak self] _ in
             Task { @MainActor in self?.refresh() }
         }
+        RunLoop.main.add(newTimer, forMode: .common)
+        timer = newTimer
     }
 
     func stopPolling() {
         timer?.invalidate()
         timer = nil
+    }
+
+    /// Force an immediate recheck. Call this from UI code when the window comes
+    /// back to the foreground (e.g. after the user toggled access in System Settings).
+    func refreshNow() {
+        refresh()
     }
 
     func requestMicrophone() async {
@@ -44,9 +54,8 @@ final class PermissionChecker: ObservableObject {
 
     private func refresh() {
         microphoneGranted = AVCaptureDevice.authorizationStatus(for: .audio) == .authorized
-        // Equivalent to kAXTrustedCheckOptionPrompt, but hard-coded to avoid Swift 6
-        // concurrency warnings about accessing a global `var` from the ApplicationServices header.
-        let options: CFDictionary = ["AXTrustedCheckOptionPrompt": false] as CFDictionary
-        accessibilityGranted = AXIsProcessTrustedWithOptions(options)
+        // Passing nil is equivalent to {kAXTrustedCheckOptionPrompt: false} and avoids
+        // the Swift 6 concurrency warning about reading the global ApplicationServices var.
+        accessibilityGranted = AXIsProcessTrustedWithOptions(nil)
     }
 }

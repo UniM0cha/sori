@@ -5,6 +5,7 @@ struct MenuBarContent: View {
     @ObservedObject var appState: AppState
     @ObservedObject var history: HistoryStore
     @State private var query: String = ""
+    @Environment(\.openSettings) private var openSettingsEnvironment
 
     private let visibleLimit: Int = 30
 
@@ -117,7 +118,7 @@ struct MenuBarContent: View {
             Divider().padding(.vertical, 4)
 
             Button {
-                openSettings()
+                openSettingsEnvironment()
             } label: {
                 Label("설정…", systemImage: "gear")
             }
@@ -151,13 +152,6 @@ struct MenuBarContent: View {
         }
     }
 
-    private func openSettings() {
-        if #available(macOS 14.0, *) {
-            NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
-        } else {
-            NSApp.sendAction(Selector(("showPreferencesWindow:")), to: nil, from: nil)
-        }
-    }
 }
 
 private struct HistoryRowView: View {
