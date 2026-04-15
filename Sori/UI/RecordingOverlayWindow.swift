@@ -11,6 +11,7 @@ final class RecordingOverlayWindowController {
     }
 
     func show() {
+        NSLog("[Sori][Overlay] show")
         if window == nil {
             let panel = NSPanel(
                 contentRect: NSRect(x: 0, y: 0, width: 260, height: 60),
@@ -23,6 +24,7 @@ final class RecordingOverlayWindowController {
             panel.backgroundColor = .clear
             panel.hasShadow = true
             panel.isMovableByWindowBackground = false
+            panel.isReleasedWhenClosed = false
             panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
 
             let host = NSHostingView(rootView: RecordingOverlayView(appState: appState))
@@ -35,6 +37,7 @@ final class RecordingOverlayWindowController {
     }
 
     func hide() {
+        NSLog("[Sori][Overlay] hide window=\(window != nil ? "present" : "nil")")
         window?.orderOut(nil)
     }
 
